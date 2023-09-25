@@ -1,7 +1,13 @@
 package com.example.burgerqueen_proj.product.entity;
 
-import javax.persistence.*;
+import lombok.*;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Setter
+@Getter
 @Entity
 public class Product {
 
@@ -13,6 +19,8 @@ public class Product {
 
     private int productPrice;
 
+    private int productCount; //default 10개
+
     private String productImage;
 
     @Enumerated(EnumType.STRING)
@@ -23,6 +31,9 @@ public class Product {
     private Category category;
 
     //ProductDetails;
+
+    @OneToMany(mappedBy = "product")
+    private List<PromotionDetails> promotionDetails = new ArrayList<>();
 
 
     private enum ProductStatus{
