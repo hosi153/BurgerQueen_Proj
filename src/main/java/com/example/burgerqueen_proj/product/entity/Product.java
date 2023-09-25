@@ -17,16 +17,24 @@ public class Product {
 
     @Enumerated(EnumType.STRING)
     private ProductStatus productStatus = ProductStatus.PRODUCT_ING;
-    CategoryId;
+
+    @ManyToOne
+    @JoinColumn(name="CATEGORY_ID")
+    private Category category;
+
     //ProductDetails;
 
 
-
-
     private enum ProductStatus{
-        PRODUCT_ING(1, "판매중")
+        PRODUCT_ING(1, "판매중");
 
-        
+        private int statusNumber;
+        private String statusDescription;
+
+        ProductStatus(int statusNumber, String statusDescription){
+            this.statusNumber = statusNumber;
+            this.statusDescription = statusDescription;
+        }
 
     }
 
