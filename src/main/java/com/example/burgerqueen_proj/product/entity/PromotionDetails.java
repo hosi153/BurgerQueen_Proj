@@ -2,11 +2,13 @@ package com.example.burgerqueen_proj.product.entity;
 
 
 import com.example.burgerqueen_proj.user.entity.Role;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
+@Builder
 @Setter
 @Getter
 @Entity
@@ -18,16 +20,16 @@ public class PromotionDetails {
 
     @ManyToOne
     @JoinColumn(name = "PROMOTION_ID")
-    private PromotionInfo promotion;
+    private Promotion promotion;
 
-    @ManyToOne
-    @JoinColumn(name = "PROMOTION_TYPE")
-    private PromotionInfo promotionType;
+//    @ManyToOne
+//    @JoinColumn(name = "PROMOTION_TYPE")
+//    private Promotion.PromotionType promotionType;
 
-    @Transient
-    @ManyToOne
-    @JoinColumn(name = "PROMOTION_STATUS")
-    private PromotionInfo promotionStatus;
+//    @Transient
+//    @ManyToOne
+//    @JoinColumn(name = "PROMOTION_STATUS")
+//    private Promotion promotionStatus;
 
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID")
@@ -38,9 +40,11 @@ public class PromotionDetails {
     private Role role;
 
 
+    public void setPromotion(Promotion promotion) {
+        this.promotion = promotion;
+        if(!this.promotion.getPromotionDetails().contains(this)){
+            this.promotion.getPromotionDetails().add(this);
+        }
 
-
-
-
-
+    }
 }

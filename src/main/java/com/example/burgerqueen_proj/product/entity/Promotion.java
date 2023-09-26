@@ -2,50 +2,53 @@ package com.example.burgerqueen_proj.product.entity;
 
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter @Builder
 @Setter
-@Getter
-@Entity
-@AllArgsConstructor @Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PromotionInfo {
-
+@Entity
+@DynamicInsert @DynamicUpdate
+public class Promotion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long promotionId;
 
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
-    @ColumnDefault("PromotionType.PROMOTION_EACH")
-    private PromotionType promotionType;
+    private PromotionType promotionType = PromotionType.PROMOTION_EACH;
 
     private String promotionName;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
-    @ColumnDefault("DiscountType.DISCOUNT_AMOUNT")
-    private DiscountType discountType;
+    private DiscountType discountType = DiscountType.DISCOUNT_AMOUNT;
 
 
     private int amount;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
-    @ColumnDefault("PromotionStatus.PROMOTION_ING")
-    private PromotionStatus promotionStatus;
+    private PromotionStatus promotionStatus =PromotionStatus.PROMOTION_ING;
 
     @Builder.Default
     @OneToMany(mappedBy = "promotion")
     private List<PromotionDetails> promotionDetails = new ArrayList<>();
 
 
-    public enum PromotionType{
+    private enum PromotionType{
         PROMOTION_SET(1, "세트상인할품 "),// 세트 상품 할인
         PORMOTION_EVENT(2, "무료 증정"), //무료로 증정되는 사은품
         PROMOTION_EACH(3, "단품 할인"), //단품 할인
         PROMOTION_GRADE(4, "등급 할인"); //고객 등급별 할인
-        
+
         private int promotionTypeNumber;
         private String promotionTypeName;
 
@@ -87,3 +90,4 @@ public class PromotionInfo {
 
 
 }
+
