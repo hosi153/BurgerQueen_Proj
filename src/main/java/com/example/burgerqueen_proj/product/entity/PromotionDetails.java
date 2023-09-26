@@ -2,9 +2,13 @@ package com.example.burgerqueen_proj.product.entity;
 
 
 import com.example.burgerqueen_proj.user.entity.Role;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
+@Setter
+@Getter
 @Entity
 public class PromotionDetails {
 
@@ -20,6 +24,10 @@ public class PromotionDetails {
     @JoinColumn(name = "PROMOTION_TYPE")
     private PromotionInfo promotionType;
 
+    @Transient
+    @ManyToOne
+    @JoinColumn(name = "PROMOTION_STATUS")
+    private PromotionInfo promotionStatus;
 
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID")

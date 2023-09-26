@@ -16,16 +16,13 @@ import java.util.Optional;
 
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryService categoryService;
+    private final PromotionService promotionService;
 
-    public ProductService(ProductRepository productRepository, CategoryService categoryService) {
-        this.productRepository = productRepository;
-        this.categoryService = categoryService;
-//        productRepository.save(Product.builder().productName("새우").productPrice(1000).category(categoryService.findCategoryById(1L)).build());
 
-    }
     public Product findProduct(long productId){
         return findVerifyProduct(productId);
     }
@@ -41,9 +38,7 @@ public class ProductService {
 
     public Product findVerifyProduct(long productId){
         Optional<Product> optionalProduct = productRepository.findById(productId);
-        Product product = optionalProduct.orElseThrow(() ->
-                new RuntimeException()
-        );
+        Product product = optionalProduct.orElseThrow(() -> new RuntimeException());
         return product;
     }
 
