@@ -12,7 +12,6 @@ import java.util.Optional;
 @Getter
 @Setter
 @AllArgsConstructor
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Category {
